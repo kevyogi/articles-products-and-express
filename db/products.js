@@ -5,6 +5,10 @@ class Products {
     this._id = 0;
   }
 
+  all(){
+    return this._collection;
+  }
+
   create(data){
     this._collection.push({'id': (this._id), 'name': data.name, 'price': Number(data.price), 'inventory': Number(data.inventory)});
     this._id++;

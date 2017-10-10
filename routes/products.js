@@ -38,4 +38,10 @@ router.delete('/:id', (req, res) => {
   }
 });
 
+router.get('/', (req, res) => {
+  const productList = products.all();
+  // console.log(productList);
+  res.render('home', {productList: products.all()});
+})
+
 module.exports = router;
