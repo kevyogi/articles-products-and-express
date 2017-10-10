@@ -1,6 +1,6 @@
 const express = require('express');
 const Products = require('../db/products.js');
-const products = new Products
+const products = new Products();
 const router = express.Router();
 
 router.post('/', (req, res) => {
@@ -41,6 +41,7 @@ router.delete('/:id', (req, res) => {
 router.get('/', (req, res) => {
   const productList = products.all();
   // console.log(productList);
+  res.send({'id': 0, 'name': 'test', 'price': 5.99, 'inventory': 5})
   res.render('home', {productList: products.all()});
 })
 

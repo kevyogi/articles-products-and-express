@@ -1,13 +1,17 @@
 class Products {
 
   constructor(){
-    this._collection = [];
+    this._collection = [{'id': 0, 'name': 'test', 'price': 5.99, 'inventory': 5}];
     this._id = 0;
   }
 
   all(){
     return this._collection;
   }
+
+  // allTitles(){
+
+  // }
 
   create(data){
     this._collection.push({'id': (this._id), 'name': data.name, 'price': Number(data.price), 'inventory': Number(data.inventory)});
