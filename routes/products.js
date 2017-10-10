@@ -3,8 +3,6 @@ const Products = require('../db/products.js');
 const products = new Products
 const router = express.Router();
 
-// let productsArray = [];
-
 router.post('/', (req, res) => {
   const data = req.body;
   if(!data.name || !data.price || !data.inventory){
@@ -31,7 +29,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  products.delete(req, res);
+  const targetProduct = products.getById(req.url);
+  if(targetProduct){
+    products.delete(targetProduct);
+    res.redirect('/products');
+  }else{
+    res.redirect(`/products${req.url}`);
+  }
 });
 
 module.exports = router;

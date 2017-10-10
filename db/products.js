@@ -37,17 +37,10 @@ class Products {
     return target;
   }
 
-  delete(req, res){
-    let r = req.body;
-    for(let i = 0; i < collection.length; i++){
-      if(collection[i].id === Number(req.param.id)){
-        collection.splice(i, 1);
-        console.log(collection);
-        res.redirect('/products');
-      }else if(i === collection.length-1){
-        res.redirect('/products/:id');
-      }
-    }
+  delete(target){
+    let targetIndex = this._collection.indexOf(target);
+    this._collection.splice(targetIndex, 1);
+    console.log(this._collection);
   }
 
 }
