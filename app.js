@@ -17,6 +17,10 @@ const PORT = process.env.PORT || 8080
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded( {extended: false} ));
 
+app.get('/', (req, res) => {
+  res.render('home')
+})
+
 app.use('/products', products);
 
 app.use('/articles', articles);

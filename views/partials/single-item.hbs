@@ -1,5 +1,30 @@
-<ul>
-  <li>{{name}}</li>
-  <li>Price: {{price}}</li>
-  <li>Inventory: {{inventory}}</li>
-</ul>
+{{#if name}}
+  <ul>
+    <li>{{name}}</li>
+    <li>Price: {{price}}</li>
+    <li>Inventory: {{inventory}}</li>
+
+    <form method="GET" action="/products/{{id}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+
+    <form method="GET" action="/products">
+      <button type="submit">Back</button>
+    </form>
+
+  </ul>
+{{else}}
+  <ul>
+    <li>{{title}}</li>
+    <li>Body: {{body}}</li>
+    <li>Author: {{author}}</li>
+
+    <form method="GET" action="/articles/{{urlTitle}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+
+    <form method="GET" action="/articles">
+      <button type="submit">Back</button>
+    </form>
+  </ul>
+{{/if}}

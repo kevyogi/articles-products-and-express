@@ -16,6 +16,17 @@ class Articles {
     return newArticle;
   }
 
+  validate(data){
+    let isThere = this._collection.some((element) => {
+      return data === element.title
+    });
+    return isThere;
+  }
+
+  all(){
+    return this._collection;
+  }
+
   findArticle(title){
     for(let i = 0; i < this._collection.length; i++){
       if(title === this._collection[i].title){
@@ -38,7 +49,7 @@ class Articles {
   }
 
   delete(target){
-    let targetArticle = this._collection.indexOf(title);
+    let targetArticle = this._collection.indexOf(target);
     this._collection.splice(targetArticle, 1);
   }
 }

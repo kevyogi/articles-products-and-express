@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  if(!data.title || !data.body || !data.author){
+  if((!data.title || !data.body || !data.author || articles.validate(data.title)) && articles.all().length > 0){
     res.redirect('/articles/new');
   }else{
     articles.create(data);
@@ -15,7 +15,9 @@ router.post('/', (req, res) => {
 
 router.put('/:title', (req, res) => {
   const data = req.body
-  const title = data.title;
+  const title = req.params.title;
+  console.log(data);
+  console.log(title);
   let targetArticle = articles.findArticle(title);
   if(targetArticle){
     if(data.title || data.body || data.author){
@@ -31,14 +33,36 @@ router.put('/:title', (req, res) => {
 
 router.delete('/:title', (req, res) => {
   const data = req.body;
-  const title = data.title;
+  const title = req.params.title;
   let targetArticle = articles.findArticle(title);
   if(targetArticle){
     articles.delete(targetArticle);
-    res.redirect('/');
+    res.redirect('/articles');
   }else{
     res.redirect('/:title');
   }
+});
+
+router.get('/', (req, res) => {
+  res.render('articleViews/index', {articleList: articles.all()})
+});
+
+router.get('/new', (req, res) => {
+  res.render('articleViews/new');
 })
+
+router.get('/:title', (req, res) => {
+  const title = req.params.title;
+  console.log(title);
+  const targetArticle = articles.findArticle(title);
+  console.log(targetArticle);
+  res.render('articleViews/article', targetArticle);
+});
+
+router.get('/:title/edit', (req, res) => {
+  const title = req.params.title;
+  const targetArticle = articles.findArticle(title);
+  res.render('articleViews/edit', targetArticle);
+});
 
 module.exports = router;
