@@ -2,7 +2,7 @@ class Products {
 
   constructor(){
     this._collection = [];
-    this._id = 0;
+    this._id = 1;
   }
 
   all(){
@@ -18,10 +18,10 @@ class Products {
 
   create(data){
     let newProduct = {
-      'id': (this._id),
-      'name': data.name,
-      'price': Number(data.price),
-      'inventory': Number(data.inventory)
+      id: (this._id),
+      name: data.name,
+      price: Number(data.price),
+      inventory: Number(data.inventory)
     };
     this._collection.push(newProduct);
     this._id++;

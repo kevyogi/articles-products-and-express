@@ -36,12 +36,16 @@ router.delete('/:id', (req, res) => {
     products.delete(targetProduct);
     res.redirect('/products');
   }else{
-    res.redirect(`/products${req.url}`);
+    res.redirect(`/products/${ID}`);
   }
 });
 
 router.get('/', (req, res) => {
   res.render('layouts/index', {productList: products.all()});
+});
+
+router.get('/new', (req, res) => {
+  res.render('layouts/new');
 });
 
 router.get('/:id', (req, res) => {
@@ -54,6 +58,6 @@ router.get('/:id/edit', (req, res) => {
   const ID = Number(req.params.id);
   const targetProduct = products.getById(ID);
   res.render('layouts/edit', targetProduct);
-})
+});
 
 module.exports = router;
