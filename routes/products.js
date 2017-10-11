@@ -19,8 +19,11 @@ router.put('/:id', (req, res) => {
   const data = req.body;
   const ID = Number(req.params.id);
   const targetProduct = products.getById(ID);
+  console.log(Number(data.price), Number(data.inventory));
   if(data.name || data.price || data.inventory){
-    if(targetProduct){
+    if(isNaN(Number(data.price)) || isNaN(Number(data.inventory))){
+      res.redirect(`/products/${ID}/edit`);
+    }else if(targetProduct){
       products.edit(data, targetProduct);
       res.redirect(`/products/${ID}`);
     }else{
