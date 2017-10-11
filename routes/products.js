@@ -5,8 +5,10 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  if((!data.name || !data.price || !data.inventory || products.validate(data.name)) && products.all().length > 0){
-    res.redirect('products/new');
+  if(!data.name || !data.price || !data.inventory){
+    res.redirect('/products/new');
+  }else if(products.validate(data.name) || isNaN(data.price) || isNaN(data.inventory) || Number(data.price) <= 0 || Number(data.inventory) <= 0){
+    res.redirect('/products/new')
   }else{
     products.create(data);
     res.redirect('/products');
@@ -41,23 +43,31 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.render('layouts/index', {productList: products.all()});
+  let prodObj = {
+    collection: products.all(),
+    back: "",
+    forward: 'Products'
+  }
+  res.render('productViews/index', prodObj);
 });
 
 router.get('/new', (req, res) => {
-  res.render('layouts/new');
+  let prodObj = {
+    back: 'products',
+  }
+  res.render('productViews/new', prodObj);
 });
 
 router.get('/:id', (req, res) => {
   const ID = Number(req.params.id);
   const targetProduct = products.getById(ID);
-  res.render('layouts/product', targetProduct);
+  res.render('productViews/product', targetProduct);
 });
 
 router.get('/:id/edit', (req, res) => {
   const ID = Number(req.params.id);
   const targetProduct = products.getById(ID);
-  res.render('layouts/edit', targetProduct);
+  res.render('productViews/edit', targetProduct);
 });
 
 module.exports = router;
