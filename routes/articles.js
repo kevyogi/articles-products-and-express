@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  if((!data.title || !data.body || !data.author || articles.validate(data.title)) && articles.all().length > 0){
+  if(!data.title || !data.body || !data.author){
+    res.redirect('/articles/new');
+  }else if(articles.validate(data.title)){
     res.redirect('/articles/new');
   }else{
     articles.create(data);
