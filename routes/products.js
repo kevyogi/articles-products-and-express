@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  if(!data.name || !data.price || !data.inventory){
+  if((!data.name || !data.price || !data.inventory || products.validate(data.name)) && products.all().length > 0){
     res.redirect('products/new');
   }else{
     products.create(data);
@@ -15,21 +15,23 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const data = req.body;
-  const targetProduct = products.getById(req.url);
+  const ID = Number(req.params.id);
+  const targetProduct = products.getById(ID);
   if(data.name || data.price || data.inventory){
     if(targetProduct){
       products.edit(data, targetProduct);
-      res.redirect(`/products/${targetProduct.id}`);
+      res.redirect(`/products/${ID}`);
     }else{
-      res.redirect(`/products${req.url}/edit`);
+      res.redirect(`/products/${ID}/edit`);
     }
   }else{
-    res.redirect(`/products${req.url}/edit`);
+    res.redirect(`/products/${ID}/edit`);
   }
 });
 
 router.delete('/:id', (req, res) => {
-  const targetProduct = products.getById(req.url);
+  const ID = Number(req.params.id);
+  const targetProduct = products.getById(ID);
   if(targetProduct){
     products.delete(targetProduct);
     res.redirect('/products');
@@ -39,9 +41,19 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  const productList = products.all();
-  // console.log(productList);
-  res.render('home', {productList: products.all()});
+  res.render('layouts/index', {productList: products.all()});
+});
+
+router.get('/:id', (req, res) => {
+  const ID = Number(req.params.id);
+  const targetProduct = products.getById(ID);
+  res.render('layouts/product', targetProduct);
+});
+
+router.get('/:id/edit', (req, res) => {
+  const ID = Number(req.params.id);
+  const targetProduct = products.getById(ID);
+  res.render('layouts/edit', targetProduct);
 })
 
 module.exports = router;

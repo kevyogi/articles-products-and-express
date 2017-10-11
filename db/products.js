@@ -9,19 +9,30 @@ class Products {
     return this._collection;
   }
 
-  create(data){
-    this._collection.push({'id': (this._id), 'name': data.name, 'price': Number(data.price), 'inventory': Number(data.inventory)});
-    this._id++;
-    console.log(this._collection);
+  validate(name){
+    let isThere = this._collection.some((element) => {
+      return name === element.name;
+    });
+    return isThere;
   }
 
-  getById(reqURL){
-    let ID = Number((reqURL.split('/')[1]));
+  create(data){
+    let newProduct = {
+      'id': (this._id),
+      'name': data.name,
+      'price': Number(data.price),
+      'inventory': Number(data.inventory)
+    };
+    this._collection.push(newProduct);
+    this._id++;
+    console.log(this._collection);
+    return newProduct;
+  }
+
+  getById(id){
     for(let i = 0; i < this._collection.length; i++){
-      if(this._collection[i].id === ID){
+      if(this._collection[i].id === id){
         return this._collection[i];
-      }else if(i === this._collection.length-1){
-        return false;
       }
     }
   }
@@ -37,7 +48,7 @@ class Products {
     if(data.inventory){
       target.inventory = data.inventory;
     }
-    console.log(this._collection);
+    // console.log(this._collection);
     return target;
   }
 
