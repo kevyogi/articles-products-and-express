@@ -1,10 +1,13 @@
 <ul>
-  {{#each productList}}
-      <li>{{name}}
-      <li>Price: {{price}}</li>
+  {{#each collection}}
+      <li>Title: {{name}}
+      <li>Price: ${{price}}</li>
       <li>Inventory: {{inventory}}</li>
       <li>ID: {{id}}</li>
     </li>
+    <form method= "GET" action="/products/{{id}}">
+      <button type="submit">More Info</button>
+    </form>
     <form method="GET" action="/products/{{id}}/edit">
       <button type="submit">Edit</button>
     </form>

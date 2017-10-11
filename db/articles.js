@@ -38,6 +38,7 @@ class Articles {
   edit(data, target){
     if(data.title){
       target.title = data.title;
+      target.urlTitle = encodeURI(data.title);
     }
     if(data.body){
       target.body = data.body;

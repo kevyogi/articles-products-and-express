@@ -16,18 +16,19 @@ router.post('/', (req, res) => {
 router.put('/:title', (req, res) => {
   const data = req.body
   const title = req.params.title;
-  console.log(data);
-  console.log(title);
   let targetArticle = articles.findArticle(title);
   if(targetArticle){
     if(data.title || data.body || data.author){
       let newData = articles.edit(data, targetArticle);
+      console.log('success', newData)
       res.redirect(`/articles/${newData.title}`);
     }else{
       res.redirect(`/articles/${title}`);
+      console.log('failure1');
     }
   }else{
     res.redirect(`/articles/${title}`);
+    console.log('failure2')
   }
 });
 
@@ -44,19 +45,29 @@ router.delete('/:title', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.render('articleViews/index', {articleList: articles.all()})
+  let artObj = {
+    articleList: articles.all(),
+    back: "",
+    forward: 'Articles'
+  }
+  res.render('articleViews/index', artObj)
 });
 
 router.get('/new', (req, res) => {
-  res.render('articleViews/new');
+  let artObj = {
+    back: 'articles'
+  }
+  res.render('articleViews/new', artObj);
 })
 
 router.get('/:title', (req, res) => {
   const title = req.params.title;
   console.log(title);
-  const targetArticle = articles.findArticle(title);
-  console.log(targetArticle);
-  res.render('articleViews/article', targetArticle);
+  let artObj = {
+    target: articles.findArticle(title),
+    back: 'articles'
+  }
+  res.render('articleViews/article', artObj);
 });
 
 router.get('/:title/edit', (req, res) => {

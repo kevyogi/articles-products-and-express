@@ -60,8 +60,12 @@ router.get('/new', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const ID = Number(req.params.id);
+  let prodObj = {
+    target: products.getById(ID),
+    back: 'products'
+  }
   const targetProduct = products.getById(ID);
-  res.render('productViews/product', targetProduct);
+  res.render('productViews/product', prodObj);
 });
 
 router.get('/:id/edit', (req, res) => {
