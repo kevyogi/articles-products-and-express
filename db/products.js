@@ -25,20 +25,23 @@ class Products {
     };
     this._collection.push(newProduct);
     this._id++;
-    console.log(this._collection);
+    // console.log(this._collection);
     return newProduct;
   }
 
   getById(id){
-    for(let i = 0; i < this._collection.length; i++){
-      if(this._collection[i].id === id){
-        return this._collection[i];
-      }
-    }
+    return this._collection.find((element) => {
+      return element.id === id;
+    });
+    // for(let i = 0; i < this._collection.length; i++){
+    //   if(this._collection[i].id === id){
+    //     return this._collection[i];
+    //   }
+    // }
   }
 
   edit(data, target){
-    console.log(this._collection);
+    // console.log(this._collection);
     if(data.name){
       target.name = data.name;
     }
@@ -55,7 +58,7 @@ class Products {
   delete(target){
     let targetIndex = this._collection.indexOf(target);
     this._collection.splice(targetIndex, 1);
-    console.log(this._collection);
+    return this._collection;
   }
 
 }

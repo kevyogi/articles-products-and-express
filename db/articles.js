@@ -12,7 +12,7 @@ class Articles {
       urlTitle: urlTitle
     }
     this._collection.push(newArticle);
-    console.log(this._collection);
+    // console.log(this._collection);
     return newArticle;
   }
 
@@ -52,6 +52,7 @@ class Articles {
   delete(target){
     let targetArticle = this._collection.indexOf(target);
     this._collection.splice(targetArticle, 1);
+    return this._collection;
   }
 }
 

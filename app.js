@@ -12,7 +12,7 @@ app.engine('.hbs', hbs({
 }));
 app.set('view engine', '.hbs');
 
-const PORT = process.env.PORT || 8080
+// const PORT = process.env.PORT || 8080
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded( {extended: false} ));
@@ -25,6 +25,8 @@ app.use('/products', products);
 
 app.use('/articles', articles);
 
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on port: ${PORT}`);
+// });
+
+module.exports = app;

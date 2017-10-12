@@ -42,7 +42,7 @@ router.delete('/:title', (req, res) => {
     articles.delete(targetArticle);
     res.redirect('/articles');
   }else{
-    res.redirect('/:title');
+    res.redirect(`/${title}`);
   }
 });
 
