@@ -1,0 +1,27 @@
+{{#if target.name}}
+  <ul>
+    <li>Title: {{target.name}}</li>
+    <li>Price: ${{target.price}}</li>
+    <li>Inventory: {{target.inventory}}</li>
+    <li>ID: {{target.id}}</li>
+    <form method="GET" action="/products/{{target.id}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+
+    {{> back}}
+
+  </ul>
+{{else}}
+  <ul>
+    <li>Title: {{target.title}}</li>
+    <li>Body: {{target.body}}</li>
+    <li>Author: {{target.author}}</li>
+
+    <form method="GET" action="/articles/{{target.urlTitle}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+
+    {{> back}}
+
+  </ul>
+{{/if}}

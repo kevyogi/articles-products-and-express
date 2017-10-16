@@ -1,0 +1,19 @@
+<ul>
+  {{#each collection}}
+      <li>Title: {{name}}
+      <li>Price: ${{price}}</li>
+      <li>Inventory: {{inventory}}</li>
+      <li>ID: {{id}}</li>
+    </li>
+    <form method= "GET" action="/products/{{id}}">
+      <button type="submit">More Info</button>
+    </form>
+    <form method="GET" action="/products/{{id}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+    <form method="POST" action="/products/{{id}}?_method=DELETE">
+      <button type="submit">Delete</button>
+    </form>
+    <br>
+  {{/each}}
+</ul>

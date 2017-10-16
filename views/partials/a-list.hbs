@@ -1,0 +1,18 @@
+<ul>
+  {{#each articleList}}
+      <li>Title: {{title}}
+      <li>Body: {{body}}</li>
+      <li>Author: {{author}}</li>
+    </li>
+    <form method="GET" action="/articles/{{urlTitle}}">
+      <button type="submit">More Info</button>
+    </form>
+    <form method="GET" action="/articles/{{urlTitle}}/edit">
+      <button type="submit">Edit</button>
+    </form>
+    <form method="POST" action="/articles/{{urlTitle}}?_method=DELETE">
+      <button type="submit">Delete</button>
+    </form>
+    <br>
+  {{/each}}
+</ul>
