@@ -1,6 +1,6 @@
 const express = require('express');
 const hbs = require('express-handlebars');
-const methodOverride = ('method-override');
+const methodOverride = require ('method-override');
 const bodyParser = require('body-parser');
 const products = require('./routes/products.js');
 // const articles = require('./routes/articles.js');
@@ -14,11 +14,11 @@ app.set('view engine', '.hbs');
 
 const PORT = 8080;
 
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-  res.send('Smoke Test');
+  res.render('home');
 });
 
 app.use('/products', products);

@@ -19,7 +19,6 @@ class Products {
   all(){
     return db.any('SELECT name, price, inventory FROM products')
       .then((data) => {
-        console.log(data);
         return data;
       })
       .catch((error) => {
@@ -28,7 +27,7 @@ class Products {
   }
 
   single(ID){
-    return db.any('SELECT name, price, inventory FROM products WHERE id = $1', [ID])
+    return db.any('SELECT name, price, inventory FROM products WHERE id = $1', ID)
       .then((data) => {
         return data;
       })
