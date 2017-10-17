@@ -16,7 +16,7 @@ class Articles {
   }
 
   all(){
-    db.any('SELECT id, title, body, author FROM articles')
+    return db.any('SELECT id, title, body, author FROM articles')
       .then((list) => {
         return list;
       })
@@ -72,7 +72,7 @@ class Articles {
   delete(reqTitle){
     return db.any('DELETE FROM articles WHERE title = $1', reqTitle)
       .then(() => {
-        console.log(`article: ${} deleted`);
+        console.log(`article: '${reqTitle}' deleted`);
       })
       .catch((error) => {
         console.log('ERROR:', error);

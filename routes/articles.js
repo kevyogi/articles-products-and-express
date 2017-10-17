@@ -18,4 +18,31 @@ router.put('/:title', (req, res) => {
   articles.update(data, title);
 });
 
+router.delete('/:title', (req, res) => {
+  const title = req.params.title;
+  articles.delete(title)
+});
+
+router.get('/', (req, res) => {
+  articles.all()
+    .then((list) => {
+      let locals = {
+        collection: list
+      }
+      res.render('articleViews/index', locals);
+    });
+});
+
+router.get('/:title', (req, res) => {
+  const title = req.params.title;
+  articles.single(title)
+    .then((item) => {
+      console.log(item[0]);
+      let locals = {
+        item: item[0]
+      }
+      res.render('articleViews/single', locals);
+    });
+})
+
 module.exports = router;
