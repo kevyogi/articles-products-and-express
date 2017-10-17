@@ -5,7 +5,10 @@ const products = new Products();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  products.create(data);
+  products.create(data)
+    .then(() => {
+      res.redirect('/products');
+    });
 });
 
 router.put('/:id', (req, res) => {
@@ -33,9 +36,9 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get('/new', (req, res) => {
-//   res.render
-// })
+router.get('/new', (req, res) => {
+  res.render('productViews/new');
+});
 
 router.get('/:id', (req, res) => {
   const ID = req.params.id;
