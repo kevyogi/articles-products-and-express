@@ -43,6 +43,17 @@ router.get('/:title', (req, res) => {
       }
       res.render('articleViews/single', locals);
     });
-})
+});
+
+router.get('/:title/edit', (req, res) => {
+  const title = req.params.title;
+  articles.single(title)
+    .then((item) => {
+      let locals = {
+        item: item[0]
+      }
+      res.render('articleViews/edit', locals);
+    });
+});
 
 module.exports = router;
