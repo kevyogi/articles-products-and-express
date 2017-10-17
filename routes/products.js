@@ -5,7 +5,6 @@ const products = new Products();
 
 router.post('/', (req, res) => {
   const data = req.body;
-  console.log(data);
   products.create(data);
 });
 
@@ -20,5 +19,9 @@ router.delete('/:id', (req, res) => {
   products.delete(ID);
 });
 
+router.get('/', (req, res) => {
+  let productList = products.all();
+  console.log(productList);
+});
 
 module.exports = router;
