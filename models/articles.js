@@ -64,6 +64,19 @@ class Articles {
         }
         return this.single(reqTitle);
       })
+      .catch((error) => {
+        console.log('ERROR:', error);
+      });
+  }
+
+  delete(reqTitle){
+    return db.any('DELETE FROM articles WHERE title = $1', reqTitle)
+      .then(() => {
+        console.log(`article: ${} deleted`);
+      })
+      .catch((error) => {
+        console.log('ERROR:', error);
+      });
   }
 }
 
