@@ -17,7 +17,7 @@ router.put('/:title', (req, res) => {
   console.log(title);
   articles.update(data, title)
     .then((updatedArt) => {
-      res.redirect(`/articles/`);
+      res.redirect(`/articles`);
     });
 });
 
@@ -34,6 +34,10 @@ router.get('/', (req, res) => {
       }
       res.render('articleViews/index', locals);
     });
+});
+
+router.get('/new', (req, res) => {
+  res.render('articleViews/new');
 });
 
 router.get('/:title', (req, res) => {

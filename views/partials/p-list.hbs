@@ -1,10 +1,13 @@
 
 <ul>
   {{#each collection}}
-    <li>ID: {{id}}</li>
     <li>Name: {{name}} </li>
     <li>Price: {{price}} </li>
     <li>Inventory: {{inventory}} </li>
+    <li>ID: {{id}}</li>
+    <a href="/products/{{id}}">More Info</a>
+    <a href="/products/{{id}}/edit">Edit</a>
+  <br>
   <br>
   {{/each}}
 </ul>

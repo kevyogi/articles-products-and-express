@@ -59,7 +59,6 @@ class Articles {
   update(data, reqTitle){
     return db.any('SELECT id, title, body, author, urltitle FROM articles WHERE title = $1', reqTitle)
       .then((oldArt) => {
-        // console.log('before:', oldArt);
         if(data.body){
           db.any('UPDATE articles SET body = $1 WHERE title = $2', [data.body, reqTitle]);
         }
@@ -70,6 +69,7 @@ class Articles {
           db.any('UPDATE articles SET urltitle = $1 WHERE title = $2', [encodeURI(data.title), reqTitle]);
           db.any('UPDATE articles SET title = $1 WHERE title = $2', [data.title, reqTitle]);
         }
+        return this.single(data.title);
       })
       .catch((error) => {
         console.log('ERROR:', error);
