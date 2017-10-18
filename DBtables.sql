@@ -11,7 +11,7 @@ SET ROLE 'db_owner';
 DROP TABLE IF EXISTS articles;
 CREATE TABLE articles (
   id        SERIAL        PRIMARY KEY,
-  title     varchar(255)  NOT NULL,
+  title     varchar(255)  NOT NULL UNIQUE,
   body      varchar(255)  NOT NULL,
   author    varchar(255)  NOT NULL,
   urlTitle  varchar(255)  NOT NULL
@@ -23,7 +23,7 @@ CREATE INDEX title_index ON articles (title);
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   id        SERIAL        PRIMARY KEY,
-  name      varchar(255)  NOT NULL,
+  name      varchar(255)  NOT NULL UNIQUE,
   price     money         NOT NULL,
   inventory int           NOT NULL
 );
