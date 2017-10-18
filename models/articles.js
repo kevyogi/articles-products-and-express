@@ -26,9 +26,19 @@ class Articles {
   }
 
   single(reqTitle){
-    return db.any('SELECT id, title, body, author, urltitle FROM articles WHERE urltitle = $1', reqTitle)
+    return db.any('SELECT id, title, body, author, urltitle FROM articles WHERE title = $1', reqTitle)
       .then((item) => {
         return item;
+      })
+      .catch((error) => {
+        console.log('ERROR:', error);
+      });
+  }
+
+  byID(ID){
+    return db.any('SELECT id, title, body, author, urltitle FROM articles WHERE id = $1', ID)
+      .then((article) => {
+        return article;
       })
       .catch((error) => {
         console.log('ERROR:', error);
@@ -49,16 +59,20 @@ class Articles {
   update(data, reqTitle){
     return db.any('SELECT id, title, body, author, urltitle FROM articles WHERE title = $1', reqTitle)
       .then((oldArt) => {
+        // console.log('before:', oldArt);
         if(data.body){
-          db.any('UPDATE articles SET body = $1 WHERE id = $2', [data.body, oldArt[0].id]);
+          db.any('UPDATE articles SET body = $1 WHERE title = $2', [data.body, reqTitle]);
         }
         if(data.author){
-          db.any('UPDATE articles SET author = $1 WHERE id = $2', [data.author, oldArt[0].id]);
+          db.any('UPDATE articles SET author = $1 WHERE title = $2', [data.author, reqTitle]);
         }
         if(data.title){
-          db.any('UPDATE articles SET urltitle = $1 WHERE id = $2', [encodeURI(data.title), oldArt[0].id]);
-          db.any('UPDATE articles SET title = $1 WHERE id = $2', [data.title, oldArt[0].id]);
+          db.any('UPDATE articles SET urltitle = $1 WHERE title = $2', [encodeURI(data.title), reqTitle]);
+          db.any('UPDATE articles SET title = $1 WHERE title = $2', [data.title, reqTitle]);
         }
+      })
+      .catch((error) => {
+        console.log('ERROR:', error);
       });
   }
 

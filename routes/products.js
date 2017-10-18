@@ -16,7 +16,7 @@ router.put('/:id', (req, res) => {
   const ID = req.params.id;
   products.update(data, ID)
     .then((updatedProduct) => {
-      res.redirect(`/products/${ID}`);
+      res.redirect(`/products/`);
     });
 });
 

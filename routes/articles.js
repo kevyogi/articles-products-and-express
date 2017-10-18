@@ -15,7 +15,10 @@ router.put('/:title', (req, res) => {
   const data = req.body;
   const title = req.params.title;
   console.log(title);
-  articles.update(data, title);
+  articles.update(data, title)
+    .then((updatedArt) => {
+      res.redirect(`/articles/`);
+    });
 });
 
 router.delete('/:title', (req, res) => {
@@ -37,7 +40,6 @@ router.get('/:title', (req, res) => {
   const title = req.params.title;
   articles.single(title)
     .then((item) => {
-      console.log(item[0]);
       let locals = {
         item: item[0]
       }
